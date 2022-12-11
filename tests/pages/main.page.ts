@@ -40,8 +40,7 @@ export default class MainPage {
   }
 
   async openMainPage() {
-    // await this.page.goto(`${this.mainPageUrl}`);
-    await this.page.goto('https://www.redmine.org/');
+    await this.page.goto(`${this.mainPageUrl}`);
     await expect(this.page).toHaveTitle(/Overview/);
   }
 
