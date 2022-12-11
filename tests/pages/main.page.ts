@@ -40,15 +40,9 @@ export default class MainPage {
   }
 
   async openMainPage() {
-
-    const [response] = await Promise.all([
-      // It is important to call waitForNavigation before click to set up waiting.
-      this.page.waitForNavigation(),
-      await this.page.goto(`${this.mainPageUrl}`),
-      await expect(this.page).toHaveTitle(/Overview/)
-    ])
-
-
+    // await this.page.goto(`${this.mainPageUrl}`);
+    await this.page.goto('https://www.redmine.org/');
+    await expect(this.page).toHaveTitle(/Overview/);
   }
 
 }
