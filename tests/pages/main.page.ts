@@ -40,8 +40,15 @@ export default class MainPage {
   }
 
   async openMainPage() {
-    await this.page.goto(`${this.mainPageUrl}`);
-    await expect(this.page).toHaveTitle(/Overview/);
+
+    const [response] = await Promise.all([
+      // It is important to call waitForNavigation before click to set up waiting.
+      this.page.waitForNavigation(),
+      await this.page.goto(`${this.mainPageUrl}`),
+      await expect(this.page).toHaveTitle(/Overview/)
+    ])
+
+
   }
 
 }
