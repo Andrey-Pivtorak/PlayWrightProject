@@ -1,47 +1,47 @@
 import { expect, Locator, Page } from '@playwright/test';
 
+const signInLink = '.login';
+const downloadTab = '.download';
+const myAccountLink = '.my-account';
+
 export default class MainPage {
 
   readonly page: Page;
-
-  #url = 'https://www.redmine.org/';
-  #signInLink = '.login';
-  #searchBar = '#q';
-  #searchRequest = 'JavaScript';
-  #downloadTab = '.download';
-  #myAccountLink = '.my-account';
+  url = 'https://www.redmine.org/';
+  searchBar = '#q';
+  searchRequest = 'JavaScript';
 
   constructor(page: Page) {
     this.page = page;
   }
 
-  get signInLink() {
-    return this.#signInLink;
-  }
-
-  get mainPageUrl() {
-    return this.#url;
-  }
-
   get myAccountLink() {
-    return this.#myAccountLink;
-  }
-
-  get searchBar() {
-    return this.#searchBar;
-  }
-
-  get searchRequest() {
-    return this.#searchRequest;
-  }
-
-  get downloadTab() {
-    return this.#downloadTab;
+    return myAccountLink;
   }
 
   async openMainPage() {
-    await this.page.goto(`${this.mainPageUrl}`);
+    await this.page.goto(`${this.url}`);
     await expect(this.page).toHaveTitle(/Overview/);
+  }
+
+  async clickSignInLink() {
+    await this.page.locator(signInLink).click();
+  }
+
+  async clickMyAccountLink() {
+    await this.page.locator(myAccountLink).click();
+  }
+
+  async clickSearchBar() {
+    await this.page.locator(this.searchBar).click();
+  }
+
+  async fillSearchBar() {
+    await this.page.locator(this.searchBar).fill(this.searchRequest);
+  }
+
+  async clickDownloadTab() {
+    await this.page.locator(downloadTab).click();
   }
 
 }

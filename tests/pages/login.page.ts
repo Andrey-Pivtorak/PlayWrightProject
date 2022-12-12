@@ -1,57 +1,41 @@
 import { expect, Locator, Page } from '@playwright/test';
 
+const loginButton = '[name="login"]';
+const lostPasswordLink = 'a[href="/account/lost_password"]';
+
 export default class LoginPage {
 
   readonly page: Page;
-
-  #url = 'https://www.redmine.org/login';
-  #usernameLocator = '#username';
-  #validUsername = 'lqctestuser';
-  #passwordLocator = '#password';
-  #validPassword = '1Q42ds';
-  #invalidPassword = '1Q42rg';
-  #loginButton = '[name="login"]';
-  #flashError = '#flash_error';
-  #lostPasswordLink = 'a[href="/account/lost_password"]';
+  url = 'https://www.redmine.org/login';
+  validUsername = 'lqctestuser'; // need to use it in spec files
+  usernameLocator = '#username';
+  passwordLocator = '#password';
+  validPassword = '1Q42ds';
+  invalidPassword = '1Q42rg';
+  flashError = '#flash_error';
 
   constructor(page: Page) {
     this.page = page;
   }
 
-  get loginPageUrl() {
-    return this.#url;
+  async fillUsername() {
+    await this.page.locator(this.usernameLocator).fill(this.validUsername);
   }
 
-  get usernameLocator() {
-    return this.#usernameLocator;
+  async fillValidPassword() {
+    await this.page.locator(this.passwordLocator).fill(this.validPassword);
   }
 
-  get validUsername() {
-    return this.#validUsername;
+  async fillInvalidPassword() {
+    await this.page.locator(this.passwordLocator).fill(this.invalidPassword);
   }
 
-  get passwordLocator() {
-    return this.#passwordLocator;
+  async clickLoginButton() {
+    await this.page.locator(loginButton).click();
   }
 
-  get validPassword() {
-    return this.#validPassword;
-  }
-
-  get invalidPassword() {
-    return this.#invalidPassword;
-  }
-
-  get loginButton() {
-    return this.#loginButton;
-  }
-
-  get flashError() {
-    return this.#flashError;
-  }
-
-  get lostPasswordLink() {
-    return this.#lostPasswordLink;
+  async clickLostPasswordLink() {
+    await this.page.locator(lostPasswordLink).click();
   }
 
 }
